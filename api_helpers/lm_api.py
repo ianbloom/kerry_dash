@@ -27,6 +27,11 @@ def LM_GET(_lm_id, _lm_key, _lm_account, _resource_path, _query_params, _data):
 	#Make request
 	response = requests.get(url, data=_data, headers=headers)
 
+	if(response.headers['X-Rate-Limit-Remaining'] == 0):
+		window = response.headers['X-Rate-Limit-Window']
+		time.sleep(float(window))
+		return_dict = LM_GET(_lm_id, _lm_key, _lm_account, _resource_path, _query_params, _data)
+
 	return_dict = {'code':response.status_code,
 				   'body':response.content}
 
@@ -51,6 +56,11 @@ def LM_POST(_lm_id, _lm_key, _lm_account, _resource_path, _query_params, _data):
 
 	#Make request
 	response = requests.post(url, data=_data, headers=headers)
+
+	if(response.headers['X-Rate-Limit-Remaining'] == 0):
+		window = response.headers['X-Rate-Limit-Window']
+		time.sleep(float(window))
+		return_dict = LM_POST(_lm_id, _lm_key, _lm_account, _resource_path, _query_params, _data)
 
 	return_dict = {'code':response.status_code,
 				   'body':response.content}
@@ -77,6 +87,11 @@ def LM_PATCH(_lm_id, _lm_key, _lm_account, _resource_path, _query_params, _data)
 	#Make request
 	response = requests.patch(url, data=_data, headers=headers)
 
+	if(response.headers['X-Rate-Limit-Remaining'] == 0):
+		window = response.headers['X-Rate-Limit-Window']
+		time.sleep(float(window))
+		return_dict = LM_PATCH(_lm_id, _lm_key, _lm_account, _resource_path, _query_params, _data)
+
 	return_dict = {'code':response.status_code,
 				   'body':response.content}
 
@@ -101,6 +116,11 @@ def LM_PUT(_lm_id, _lm_key, _lm_account, _resource_path, _query_params, _data):
 
 	#Make request
 	response = requests.put(url, data=_data, headers=headers)
+
+	if(response.headers['X-Rate-Limit-Remaining'] == 0):
+		window = response.headers['X-Rate-Limit-Window']
+		time.sleep(float(window))
+		return_dict = LM_PUT(_lm_id, _lm_key, _lm_account, _resource_path, _query_params, _data)
 
 	return_dict = {'code':response.status_code,
 				   'body':response.content}
