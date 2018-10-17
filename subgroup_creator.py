@@ -38,6 +38,10 @@ lm_id      = 'wv2NAH8BGTqz7p2YEHHV'
 lm_key     = 'J}HH5=_Kc]SW53jd=kEc8t3[6P!L!E$ZgX8ui2x('
 lm_company = 'ianbloom'
 
+####################
+# GET Device Group #
+####################
+
 group_id      = 39
 resource_path = f'/device/groups/{group_id}'
 query_params  = ''
