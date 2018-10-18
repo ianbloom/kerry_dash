@@ -1,4 +1,4 @@
-from api_helpers.lm_api import *
+from api_helpers.super_func import *
 from pprint import pprint
 import argparse
 
@@ -38,22 +38,6 @@ lm_id      = 'wv2NAH8BGTqz7p2YEHHV'
 lm_key     = 'J}HH5=_Kc]SW53jd=kEc8t3[6P!L!E$ZgX8ui2x('
 lm_company = 'ianbloom'
 
-####################
-# GET Device Group #
-####################
-
 group_id      = 39
-resource_path = f'/device/groups/{group_id}'
-query_params  = ''
-data          = ''
 
-return_dict = LM_GET(lm_id, lm_key, lm_company, resource_path, query_params, data)
-body = json.loads(return_dict['body'])
-
-group_full_path = body['fullPath']
-
-##################
-# POST Subgroups #
-##################
-
-
+SUBGROUP_POSTER(lm_id, lm_key, lm_company, group_id)
