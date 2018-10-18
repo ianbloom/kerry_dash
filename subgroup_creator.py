@@ -1,4 +1,5 @@
 from api_helpers.super_func import *
+from api_helpers.lm_api import *
 from pprint import pprint
 import argparse
 
@@ -38,6 +39,6 @@ lm_id      = 'wv2NAH8BGTqz7p2YEHHV'
 lm_key     = 'J}HH5=_Kc]SW53jd=kEc8t3[6P!L!E$ZgX8ui2x('
 lm_company = 'ianbloom'
 
-group_id      = 39
+group_id = 39
 
 SUBGROUP_POSTER(lm_id, lm_key, lm_company, group_id)
