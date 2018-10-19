@@ -32,6 +32,7 @@ import argparse
 
 # group_id = args.id
 
+
 # THE ABOVE IS INTENDED FOR RELEASE
 # THE BELOW IS HARDCODED FOR TESTING
 
@@ -41,4 +42,19 @@ lm_company = 'ianbloom'
 
 group_id = 39
 
-SUBGROUP_POSTER(lm_id, lm_key, lm_company, group_id)
+# get_dict will consist of a name and a device group full path
+get_dict = SUBGROUP_GETTER(lm_id, lm_key, lm_company, group_id)
+# we supply SUBGROUP_POSTER with the device group full path for applies to logic
+SUBGROUP_POSTER(lm_id, lm_key, lm_company, group_id, get_dict['path'])
+# post dashboard group with default device group token
+thang = DASH_GROUP_POSTER(lm_id, lm_key, lm_company, get_dict['name'], get_dict['path'])
+
+print(thang['body'])
+
+# resource_path = '/dashboard/groups/9'
+# query_params  = ''
+# data          = ''
+
+# thang = LM_GET(lm_id, lm_key, lm_company, resource_path, query_params, data)
+# jsonbuild = json.loads(thang['body'].decode())
+# pprint(jsonbuild)
