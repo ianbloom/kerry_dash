@@ -42,8 +42,6 @@ def SUBGROUP_POSTER(_lm_id, _lm_key, _lm_account, _group_id, _group_full_path):
     # Convert data_dict to JSON string
     data = json.dumps(data_dict)
     return_dict = LM_POST(_lm_id, _lm_key, _lm_account, resource_path, query_params, data)
-    print(return_dict['code'])
-    print(return_dict['body'])
 
     ###################
     # Windows Servers #
@@ -60,8 +58,6 @@ def SUBGROUP_POSTER(_lm_id, _lm_key, _lm_account, _group_id, _group_full_path):
     # Convert data_dict to JSON string
     data = json.dumps(data_dict)
     return_dict = LM_POST(_lm_id, _lm_key, _lm_account, resource_path, query_params, data)
-    print(return_dict['code'])
-    print(return_dict['body'])
 
     ###########
     # Network #
@@ -78,8 +74,6 @@ def SUBGROUP_POSTER(_lm_id, _lm_key, _lm_account, _group_id, _group_full_path):
     # Convert data_dict to JSON string
     data = json.dumps(data_dict)
     return_dict = LM_POST(_lm_id, _lm_key, _lm_account, resource_path, query_params, data)
-    print(return_dict['code'])
-    print(return_dict['body'])
 
     return 0
 
@@ -116,14 +110,58 @@ def DASHBOARD_POSTER(_lm_id, _lm_key, _lm_account, _dash_group_id, _exported_jso
     #  '      "sizey" : 4\n'
     #  '    },\n'
 
-    # First open the file
+    # First open the file and write to string, then parse into JSON
     file = open(_exported_json_path, "r")
-    print(file)
+    file_string = file.read()
+    file.close()
+    file_json = json.loads(file_string)
 
     # Then create dash
     resource_path = '/dashboard/dashboards'
     query_params  = ''
 
+    data_dict = {}
+    data_dict['name'] = file_json['name']
+    data_dict['description'] = file_json['description']
+    data_dict['groupId'] = _dash_group_id
+    data_dict['sharable'] = True
+
+    # Turn data dictionary into json string
+    data = json.dumps(data_dict)
+
+    # Make the request
+    return_dict = LM_POST(_lm_id, _lm_key, _lm_account, resource_path, query_params, data)
+    return_json = json.loads(return_dict['body'])
+
+    # Obtain dash_id for posting widgets to
+    dash_id = return_json['data']['id']
+    print(return_dict['body'])
+
+    # Initialize widgets_config
+    widgets_config = {}
+    widgets = file_json['widgets']
+
+    for widget in widgets:
+        resource_path = '/dashboard/widgets'
+        query_params  = ''
+        config = widget['config']
+
+        # LM DEV WHY DID YOU DO THIS
+        if(config['type'] == 'noc'):
+            config['type'] = 'deviceNOC'
+        
+        # Append dashboard ID to config
+        config['dashboardId'] = dash_id
+        position = widget['position']
+        data = json.dumps(config)
+
+        widget_body = LM_POST(_lm_id, _lm_key, _lm_account, resource_path, query_params, data)['body']
+        widget_json = json.loads(widget_body)
+        widget_id = widget_json['data']['id']
+        print(config)
+        print(position)
+
+        widgets_config[f'{widget_id}'] = position
     
     # Then post widgets
     # then update widgets config

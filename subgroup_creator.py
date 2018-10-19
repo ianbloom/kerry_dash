@@ -2,6 +2,7 @@ from api_helpers.super_func import *
 from api_helpers.lm_api import *
 from pprint import pprint
 import argparse
+import os
 
 
 # This script will take a filepath to a keyfile and will also take the ID of a device group to create subgroups for Kerry's Dashboards
@@ -46,5 +47,9 @@ get_dict = SUBGROUP_GETTER(lm_id, lm_key, lm_company, group_id)
 # we supply SUBGROUP_POSTER with the device group full path for applies to logic
 SUBGROUP_POSTER(lm_id, lm_key, lm_company, group_id, get_dict['path'])
 # post dashboard group with default device group token
-thang = DASH_GROUP_POSTER(lm_id, lm_key, lm_company, get_dict['name'], get_dict['path'])
+dash_response = DASH_GROUP_POSTER(lm_id, lm_key, lm_company, get_dict['name'], get_dict['path'])
+dash_json = json.loads(dash_response['body'])
+dash_group_id = dash_json['data']['id']
+print(dash_group_id)
 
+DASHBOARD_POSTER(lm_id, lm_key, lm_company, dash_group_id, './kerry_dash/kerry_dash/dashboards/Alert_Overview.json')
