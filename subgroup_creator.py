@@ -32,7 +32,6 @@ import argparse
 
 # group_id = args.id
 
-
 # THE ABOVE IS INTENDED FOR RELEASE
 # THE BELOW IS HARDCODED FOR TESTING
 
