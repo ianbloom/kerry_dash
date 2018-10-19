@@ -50,10 +50,8 @@ thang = DASH_GROUP_POSTER(lm_id, lm_key, lm_company, get_dict['name'], get_dict[
 
 print(thang['body'])
 
-# resource_path = '/dashboard/groups/9'
-# query_params  = ''
-# data          = ''
-
-# thang = LM_GET(lm_id, lm_key, lm_company, resource_path, query_params, data)
-# jsonbuild = json.loads(thang['body'].decode())
-# pprint(jsonbuild)
+resource_path = '/dashboard/dashboards/3'
+query_params = ''
+data = ''
+return_dict = LM_GET(lm_id, lm_key, lm_company, resource_path, query_params, data)
+pprint(return_dict['body'].decode())
