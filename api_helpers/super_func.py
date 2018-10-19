@@ -106,13 +106,25 @@ def DASH_GROUP_POSTER(_lm_id, _lm_key, _lm_account, _name, _full_path):
     return_dict = LM_POST(_lm_id, _lm_key, _lm_account, resource_path, query_params, data)
     return return_dict
 
-def DASHBOARD_POSTER(_lm_id, _lm_key, _lm_account, _dash_group_id, _exported_json):
+def DASHBOARD_POSTER(_lm_id, _lm_key, _lm_account, _dash_group_id, _exported_json_path):
     # Example of widgets config
-#     "widgetsConfig" : {\n'
-#  '    "33" : {\n'
-#  '      "col" : 9,\n'
-#  '      "sizex" : 4,\n'
-#  '      "row" : 5,\n'
-#  '      "sizey" : 4\n'
-#  '    },\n'
+    #     "widgetsConfig" : {\n'
+    #  '    "33" : {\n'
+    #  '      "col" : 9,\n'
+    #  '      "sizex" : 4,\n'
+    #  '      "row" : 5,\n'
+    #  '      "sizey" : 4\n'
+    #  '    },\n'
+
+    # First open the file
+    file = open(_exported_json_path, "r")
+    print(file)
+
+    # Then create dash
+    resource_path = '/dashboard/dashboards'
+    query_params  = ''
+
+    
+    # Then post widgets
+    # then update widgets config
     return 0

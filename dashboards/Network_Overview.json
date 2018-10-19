@@ -1,0 +1,611 @@
+{
+  "santabaRelease": 110,
+  "widgetTokens": [],
+  "name": "Network Overview",
+  "description": "",
+  "widgetsConfigVersion": 2,
+  "widgets": [
+    {
+      "position": {
+        "col": 9,
+        "sizex": 4,
+        "row": 6,
+        "sizey": 4
+      },
+      "config": {
+        "ackChecked": true,
+        "displaySettings": {"mapStyle": "standard"},
+        "displayWarnAlert": true,
+        "description": "",
+        "type": "gmap",
+        "version": 2,
+        "displayErrorAlert": true,
+        "name": "Alerts by Device Location",
+        "displayCriticalAlert": true,
+        "theme": "newSimpleDarkBlue",
+        "interval": 3,
+        "timescale": "day",
+        "sdtChecked": true,
+        "mapPoints": [{
+          "type": "device",
+          "deviceGroupFullPath": "##defaultDeviceGroup##/Network",
+          "deviceDisplayName": "*"
+        }]
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 4,
+        "row": 6,
+        "sizey": 4
+      },
+      "config": {
+        "ackChecked": true,
+        "displaySettings": {
+          "showTypeIcon": true,
+          "displayAs": "table"
+        },
+        "displayWarnAlert": true,
+        "description": "",
+        "type": "noc",
+        "version": 2,
+        "displayErrorAlert": true,
+        "displayColumn": 2,
+        "name": "Alert Status by Device",
+        "displayCriticalAlert": true,
+        "theme": "newSimpleDarkBlue",
+        "interval": 3,
+        "sortBy": "alertSeverity",
+        "timescale": "day",
+        "sdtChecked": true,
+        "items": [{
+          "dataPointName": "*",
+          "instanceName": "*",
+          "name": "##HOSTNAME##",
+          "dataSourceDisplayName": "*",
+          "groupBy": "device",
+          "type": "device",
+          "deviceGroupFullPath": "##defaultDeviceGroup##/Network",
+          "deviceDisplayName": "*"
+        }]
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 6,
+        "row": 10,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {},
+        "name": "Top Network Interfaces by Outbound Bandwidth",
+        "description": "",
+        "theme": "newSimpleDarkBlue",
+        "interval": 3,
+        "graphInfo": {
+          "virtualDataPoints": [],
+          "minValue": 0,
+          "topX": 10,
+          "maxValue": "NaN",
+          "dataPoints": [{
+            "dataPointName": "OutMbps",
+            "instanceName": {
+              "isGlob": true,
+              "value": "*"
+            },
+            "dataSourceFullName": "Interfaces (64 bit)- (snmp64_If-)",
+            "consolidateFunction": "average",
+            "display": {
+              "color": "Auto",
+              "legend": "##HOSTNAME##_##INSTANCE##",
+              "type": "line",
+              "option": "custom"
+            },
+            "name": "OutMbps",
+            "aggregateFunction": "SUM",
+            "deviceDisplayName": {
+              "isGlob": true,
+              "value": "*"
+            },
+            "deviceGroupFullPath": {
+              "isGlob": true,
+              "value": "##defaultDeviceGroup##/Network"
+            }
+          }],
+          "verticalLabel": "Mbps",
+          "aggregate": false,
+          "desc": true,
+          "scaleUnit": 1000,
+          "globalConsolidateFunction": "default"
+        },
+        "type": "cgraph",
+        "timescale": "1hour",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 7,
+        "sizex": 6,
+        "row": 10,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {},
+        "name": "Top Network Interfaces by Inbound Bandwidth",
+        "description": "",
+        "theme": "newSimpleDarkBlue",
+        "interval": 3,
+        "graphInfo": {
+          "virtualDataPoints": [],
+          "minValue": 0,
+          "topX": 10,
+          "maxValue": "NaN",
+          "dataPoints": [{
+            "dataPointName": "InMbps",
+            "instanceName": {
+              "isGlob": true,
+              "value": "*"
+            },
+            "dataSourceFullName": "Interfaces (64 bit)- (snmp64_If-)",
+            "consolidateFunction": "average",
+            "display": {
+              "color": "Auto",
+              "legend": "##HOSTNAME##_##INSTANCE##",
+              "type": "line",
+              "option": "custom"
+            },
+            "name": "InMbps",
+            "aggregateFunction": "SUM",
+            "deviceDisplayName": {
+              "isGlob": true,
+              "value": "*"
+            },
+            "deviceGroupFullPath": {
+              "isGlob": true,
+              "value": "##defaultDeviceGroup##/Network"
+            }
+          }],
+          "verticalLabel": "Mbps",
+          "aggregate": false,
+          "desc": true,
+          "scaleUnit": 1000,
+          "globalConsolidateFunction": "default"
+        },
+        "type": "cgraph",
+        "timescale": "1hour",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 6,
+        "row": 14,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {},
+        "name": "Top Network Interfaces by Relative Outbound Bandwidth",
+        "description": "",
+        "theme": "newSimpleDarkBlue",
+        "interval": 3,
+        "type": "pieChart",
+        "timescale": "day",
+        "pieChartInfo": {
+          "maxSlicesCanBeShown": 10,
+          "virtualDataPoints": [],
+          "showLabelsAndLinesOnPC": true,
+          "counters": [],
+          "dataPoints": [{
+            "dataPointName": "OutMbps",
+            "top10": true,
+            "instanceName": "*",
+            "dataSourceFullName": "Interfaces (64 bit)- (snmp64_If-)",
+            "name": "OutMbps",
+            "aggregateFunction": "SUM",
+            "deviceGroupFullPath": "##defaultDeviceGroup##/Network",
+            "deviceDisplayName": "*",
+            "aggregate": false
+          }],
+          "hideZeroPercentSlices": false,
+          "groupRemainingAsOthers": true,
+          "pieChartItems": [{
+            "dataPointName": "OutMbps",
+            "color": "Auto",
+            "legend": "##HOSTNAME##_##INSTANCE##"
+          }],
+          "title": "Top Network Interfaces by Relative Outbound Bandwidth"
+        },
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 7,
+        "sizex": 6,
+        "row": 14,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {},
+        "name": "Top Network Interfaces by Relative Inbound Bandwidth",
+        "description": "",
+        "theme": "newSimpleDarkBlue",
+        "interval": 3,
+        "type": "pieChart",
+        "timescale": "day",
+        "pieChartInfo": {
+          "maxSlicesCanBeShown": 10,
+          "virtualDataPoints": [],
+          "showLabelsAndLinesOnPC": true,
+          "counters": [],
+          "dataPoints": [{
+            "dataPointName": "InMbps",
+            "top10": true,
+            "instanceName": "*",
+            "dataSourceFullName": "Interfaces (64 bit)- (snmp64_If-)",
+            "name": "InMbps",
+            "aggregateFunction": "SUM",
+            "deviceGroupFullPath": "##defaultDeviceGroup##/Network",
+            "deviceDisplayName": "*",
+            "aggregate": false
+          }],
+          "hideZeroPercentSlices": false,
+          "groupRemainingAsOthers": true,
+          "pieChartItems": [{
+            "dataPointName": "InMbps",
+            "color": "Auto",
+            "legend": "##HOSTNAME##_##INSTANCE##"
+          }],
+          "title": "Top Network Interfaces by Relative Inbound Bandwidth"
+        },
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 11,
+        "sizex": 2,
+        "row": 3,
+        "sizey": 3
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [],
+          "counters": [{
+            "name": "Network",
+            "appliesTo": "join(system.groups,\",\") =~ \"##defaultDeviceGroup##\" and isNetwork()"
+          }],
+          "dataPoints": [],
+          "bigNumberItems": [{
+            "dataPointName": "Network",
+            "useCommaSeparators": false,
+            "bottomLabel": "Network Devices",
+            "rounding": 0,
+            "position": 1,
+            "rightLabel": "",
+            "colorThresholds": null
+          }]
+        },
+        "displaySettings": {},
+        "name": "You have...",
+        "description": "",
+        "theme": "newSimpleDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 5,
+        "sizex": 4,
+        "row": 6,
+        "sizey": 4
+      },
+      "config": {
+        "bigNumberInfo": {
+          "virtualDataPoints": [],
+          "counters": [],
+          "dataPoints": [
+            {
+              "dataPointName": "OutMbps",
+              "instanceName": "*",
+              "dataSourceFullName": "Interfaces (64 bit)- (snmp64_If-)",
+              "name": "OutMbps",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultDeviceGroup##/Network",
+              "deviceDisplayName": "*"
+            },
+            {
+              "dataPointName": "InMbps",
+              "instanceName": "*",
+              "dataSourceFullName": "Interfaces (64 bit)- (snmp64_If-)",
+              "name": "InMbps",
+              "aggregateFunction": "SUM",
+              "deviceGroupFullPath": "##defaultDeviceGroup##/Network",
+              "deviceDisplayName": "*"
+            }
+          ],
+          "bigNumberItems": [
+            {
+              "dataPointName": "OutMbps",
+              "useCommaSeparators": false,
+              "bottomLabel": "Outbound Mbps",
+              "rounding": 0,
+              "position": 1,
+              "rightLabel": "",
+              "colorThresholds": null
+            },
+            {
+              "dataPointName": "InMbps",
+              "useCommaSeparators": false,
+              "bottomLabel": "Inbound Mbps",
+              "rounding": 0,
+              "position": 2,
+              "rightLabel": "",
+              "colorThresholds": null
+            }
+          ]
+        },
+        "displaySettings": {},
+        "name": "Total Bandwidth across all Network Devices",
+        "description": "",
+        "theme": "newSimpleDarkBlue",
+        "interval": 3,
+        "type": "bigNumber",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 10,
+        "row": 3,
+        "sizey": 3
+      },
+      "config": {
+        "displaySettings": {
+          "sortDirection": "desc",
+          "isShowAll": true,
+          "showFilter": false,
+          "columns": [
+            {
+              "visible": false,
+              "columnLabel": "Severity",
+              "columnKey": "alert-severity"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Began",
+              "columnKey": "alert-began"
+            },
+            {
+              "visible": true,
+              "columnLabel": "\n    Device/Website\n\n    ",
+              "columnKey": "alert-device"
+            },
+            {
+              "visible": true,
+              "columnLabel": "LogicModule",
+              "columnKey": "alert-datasource"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Instance",
+              "columnKey": "alert-datasource-instance"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Datapoint",
+              "columnKey": "alert-datapoint"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Value",
+              "columnKey": "alert-value"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Effective Thresholds",
+              "columnKey": "alert-thresholds"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Alert Rule",
+              "columnKey": "alert-rule-name"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Escalation Chain",
+              "columnKey": "alert-escalation-chain"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Acknowledged By",
+              "columnKey": "alert-acked-by"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Acknowledged On",
+              "columnKey": "alert-acked-on"
+            },
+            {
+              "visible": true,
+              "columnLabel": "Notes",
+              "columnKey": "alert-notes"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Group",
+              "columnKey": "alert-group"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Cleared On",
+              "columnKey": "alert-cleared-on"
+            },
+            {
+              "visible": false,
+              "columnLabel": "In SDT",
+              "columnKey": "alert-in-sdt"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Instance Description",
+              "columnKey": "alert-datasource-instance-description"
+            },
+            {
+              "visible": false,
+              "columnLabel": "Full Path",
+              "columnKey": "alert-full-path"
+            }
+          ],
+          "playSound": {
+            "criticalAlertAudioFileName": "",
+            "errorAlertAudioFileName": "",
+            "warningAlertAudioFileName": "",
+            "shouldPlay": false
+          },
+          "fontsize": "normal-font",
+          "sortBy": "startEpoch"
+        },
+        "name": "All Network Device Alerts",
+        "description": "",
+        "theme": "newSimpleDarkBlue",
+        "interval": 3,
+        "filters": {
+          "severity": "",
+          "sdted": "all",
+          "chain": "",
+          "instance": "",
+          "dataPoint": "",
+          "host": "",
+          "rule": "",
+          "keyword": "",
+          "dataSource": "",
+          "acked": "all",
+          "cleared": "no",
+          "group": "%23%23defaultDeviceGroup%23%23%2FNetwork*"
+        },
+        "type": "alert",
+        "timescale": "day",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 7,
+        "sizex": 6,
+        "row": 18,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {},
+        "name": "Top Network Interfaces by Inbound Broadcast Packets",
+        "description": "",
+        "theme": "newSimpleDarkBlue",
+        "interval": 3,
+        "graphInfo": {
+          "virtualDataPoints": [],
+          "minValue": 0,
+          "topX": 25,
+          "maxValue": "NaN",
+          "dataPoints": [{
+            "dataPointName": "InBroadcastPkts",
+            "instanceName": {
+              "isGlob": true,
+              "value": "*"
+            },
+            "dataSourceFullName": "Interfaces (64 bit)- (snmp64_If-)",
+            "consolidateFunction": "average",
+            "display": {
+              "color": "Auto",
+              "legend": "##HOSTNAME##_##INSTANCE##",
+              "type": "line",
+              "option": "custom"
+            },
+            "name": "InBroadcastPkts",
+            "aggregateFunction": "SUM",
+            "deviceDisplayName": {
+              "isGlob": true,
+              "value": "*"
+            },
+            "deviceGroupFullPath": {
+              "isGlob": true,
+              "value": "##defaultDeviceGroup##/Network"
+            }
+          }],
+          "verticalLabel": "Packets",
+          "aggregate": false,
+          "desc": true,
+          "scaleUnit": 1000,
+          "globalConsolidateFunction": "default"
+        },
+        "type": "cgraph",
+        "timescale": "1hour",
+        "version": 2
+      }
+    },
+    {
+      "position": {
+        "col": 1,
+        "sizex": 6,
+        "row": 18,
+        "sizey": 4
+      },
+      "config": {
+        "displaySettings": {},
+        "name": "Top Network Interfaces by Inbound Multicast Packets",
+        "description": "",
+        "theme": "newSimpleDarkBlue",
+        "interval": 3,
+        "graphInfo": {
+          "virtualDataPoints": [],
+          "minValue": 0,
+          "topX": 25,
+          "maxValue": "NaN",
+          "dataPoints": [{
+            "dataPointName": "InMulticastPkts",
+            "instanceName": {
+              "isGlob": true,
+              "value": "*"
+            },
+            "dataSourceFullName": "Interfaces (64 bit)- (snmp64_If-)",
+            "consolidateFunction": "average",
+            "display": {
+              "color": "Auto",
+              "legend": "##HOSTNAME##_##INSTANCE##",
+              "type": "line",
+              "option": "custom"
+            },
+            "name": "InMulticastPkts",
+            "aggregateFunction": "SUM",
+            "deviceDisplayName": {
+              "isGlob": true,
+              "value": "*"
+            },
+            "deviceGroupFullPath": {
+              "isGlob": true,
+              "value": "##defaultDeviceGroup##/Network"
+            }
+          }],
+          "verticalLabel": "Packets",
+          "aggregate": false,
+          "desc": true,
+          "scaleUnit": 1000,
+          "globalConsolidateFunction": "default"
+        },
+        "type": "cgraph",
+        "timescale": "1hour",
+        "version": 2
+      }
+    }
+  ],
+  "version": 2
+}
