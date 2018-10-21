@@ -42,7 +42,7 @@ def SUBGROUP_POSTER(_lm_id, _lm_key, _lm_account, _group_id, _group_full_path):
     # Convert data_dict to JSON string
     data = json.dumps(data_dict)
     return_dict = LM_POST(_lm_id, _lm_key, _lm_account, resource_path, query_params, data)
-
+    print(return_dict['body'].decode())
     ###################
     # Windows Servers #
     ###################
@@ -58,6 +58,7 @@ def SUBGROUP_POSTER(_lm_id, _lm_key, _lm_account, _group_id, _group_full_path):
     # Convert data_dict to JSON string
     data = json.dumps(data_dict)
     return_dict = LM_POST(_lm_id, _lm_key, _lm_account, resource_path, query_params, data)
+    print(return_dict['body'].decode())
 
     ###########
     # Network #
@@ -74,6 +75,7 @@ def SUBGROUP_POSTER(_lm_id, _lm_key, _lm_account, _group_id, _group_full_path):
     # Convert data_dict to JSON string
     data = json.dumps(data_dict)
     return_dict = LM_POST(_lm_id, _lm_key, _lm_account, resource_path, query_params, data)
+    print(return_dict['body'].decode())
 
     return 0
 
@@ -131,38 +133,58 @@ def DASHBOARD_POSTER(_lm_id, _lm_key, _lm_account, _dash_group_id, _exported_jso
 
     # Make the request
     return_dict = LM_POST(_lm_id, _lm_key, _lm_account, resource_path, query_params, data)
-    return_json = json.loads(return_dict['body'])
+    return_json = json.loads(return_dict['body'].decode())
 
     # Obtain dash_id for posting widgets to
-    dash_id = return_json['data']['id']
-    print(return_dict['body'])
+    dash_id = return_json['id']
 
     # Initialize widgets_config
     widgets_config = {}
     widgets = file_json['widgets']
 
+    # Then post widgets
     for widget in widgets:
         resource_path = '/dashboard/widgets'
         query_params  = ''
         config = widget['config']
 
         # LM DEV WHY DID YOU DO THIS
-        if(config['type'] == 'noc'):
-            config['type'] = 'deviceNOC'
+        # if(config['type'] == 'noc'):
+        #     config['type'] = 'deviceNOC'
+        # elif(config['type'] == 'cgraph'):
+        #     config['type'] = 'ngraph'
         
         # Append dashboard ID to config
         config['dashboardId'] = dash_id
         position = widget['position']
         data = json.dumps(config)
 
-        widget_body = LM_POST(_lm_id, _lm_key, _lm_account, resource_path, query_params, data)['body']
-        widget_json = json.loads(widget_body)
-        widget_id = widget_json['data']['id']
+        print('CONFIG')
         print(config)
+        print('\n')
+        print('POSITION')
         print(position)
+        print('\n')
 
+        widget_body = LM_POST(_lm_id, _lm_key, _lm_account, resource_path, query_params, data)['body'].decode()
+        widget_json = json.loads(widget_body)
+        print(widget_json)
+        widget_id = widget_json['id']
+
+        # Update widgets_config dictionary
         widgets_config[f'{widget_id}'] = position
-    
-    # Then post widgets
-    # then update widgets config
+        print(widgets_config)
+
+    # Now update Dashboard widget
+    resource_path = f'/dashboard/dashboards/{dash_id}'
+    query_params  = ''
+
+    data_dict = {}
+    data_dict['widgetsConfig'] = widgets_config
+    data = json.dumps(data_dict)
+
+    return_dict = LM_PATCH(_lm_id, _lm_key, _lm_account, resource_path, query_params, data)
+    print(return_dict['body'])
+
+
     return 0

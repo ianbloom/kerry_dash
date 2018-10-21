@@ -1,55 +1,74 @@
 from api_helpers.super_func import *
 from api_helpers.lm_api import *
+from dash_obtainer import *
 from pprint import pprint
 import argparse
 import os
-
+import sys
 
 # This script will take a filepath to a keyfile and will also take the ID of a device group to create subgroups for Kerry's Dashboards
 
-# #########################
-# # CLI ARGUMENT HANDLING #
-# #########################
+#########################
+# CLI ARGUMENT HANDLING #
+#########################
 
-# parser=argparse.ArgumentParser()
+parser=argparse.ArgumentParser()
 
-# parser.add_argument('-file', help='Path to file containing API credentials')
-# parser.add_argument('-id', help='The ID of a LogicMonitor device group to create dynamic subgroups for')
+parser.add_argument('-file', help='Path to file containing API credentials')
+parser.add_argument('-group', help='The ID of a LogicMonitor device group to create dynamic subgroups and dashboards for')
+parser.add_argument('-dash', help='The ID of a LogicMonitor dashboard to extract')
 
-# args = parser.parse_args()
+args = parser.parse_args()
+args_dict = vars(args)
+print(args_dict)
 
-# ###################
-# # PARSE API CREDS #
-# ###################
+###################
+# PARSE API CREDS #
+###################
 
-# key_file_path = args.file
-# file = open(key_file_path, 'r')
-# file_text = file.read()
+key_file_path = args_dict['file']
+file = open(key_file_path, 'r')
+file_text = file.read()
+print(file_text)
 
-# key_file_json = json.loads(file_text)
-# lm_id = key_file_json['lm_id']
-# lm_key = key_file_json['lm_key']
-# lm_company = key_file_json['lm_company']
+key_file_json = json.loads(file_text)
+lm_id = key_file_json['lm_id']
+lm_key = key_file_json['lm_key']
+lm_company = key_file_json['lm_company']
 
-# group_id = args.id
+if(args_dict['group'] != None):
+	print('im here')
+	group_id = args_dict['group']
 
-# THE ABOVE IS INTENDED FOR RELEASE
-# THE BELOW IS HARDCODED FOR TESTING
+	# get_dict will consist of a name and a device group full path
+	get_dict = SUBGROUP_GETTER(lm_id, lm_key, lm_company, group_id)
+	# we supply SUBGROUP_POSTER with the device group full path for applies to logic
+	SUBGROUP_POSTER(lm_id, lm_key, lm_company, group_id, get_dict['path'])
+	# post dashboard group with default device group token
+	dash_response = DASH_GROUP_POSTER(lm_id, lm_key, lm_company, get_dict['name'], get_dict['path'])
+	dash_json = json.loads(dash_response['body'])
+	pprint(dash_json)
+	dash_group_id = dash_json['id']
 
-lm_id      = 'wv2NAH8BGTqz7p2YEHHV'
-lm_key     = 'J}HH5=_Kc]SW53jd=kEc8t3[6P!L!E$ZgX8ui2x('
-lm_company = 'ianbloom'
+	# file_array = os.listdir('C:\\Users\\Ian\\Documents\\GitHub\\kerry_dash\\dashboards')
+	file_array = os.listdir('./kerry_dash/kerry_dash/dashboards')
 
-group_id = 39
+	for file in file_array:
+		# dash_path = 'C:\\Users\\Ian\\Documents\\GitHub\\kerry_dash\\dashboards\\' + file
+		dash_path = './kerry_dash/kerry_dash/dashboards/' + file
 
-# get_dict will consist of a name and a device group full path
-get_dict = SUBGROUP_GETTER(lm_id, lm_key, lm_company, group_id)
-# we supply SUBGROUP_POSTER with the device group full path for applies to logic
-SUBGROUP_POSTER(lm_id, lm_key, lm_company, group_id, get_dict['path'])
-# post dashboard group with default device group token
-dash_response = DASH_GROUP_POSTER(lm_id, lm_key, lm_company, get_dict['name'], get_dict['path'])
-dash_json = json.loads(dash_response['body'])
-dash_group_id = dash_json['data']['id']
-print(dash_group_id)
+		DASHBOARD_POSTER(lm_id, lm_key, lm_company, dash_group_id, dash_path)
+elif(args_dict['dash'] != None):
+	dash_id = args_dict['dash']
+	print(lm_id)
+	print(lm_key)
+	print(lm_company)
+	DASH_OBTAIN(lm_id, lm_key, lm_company, dash_id)
 
-DASHBOARD_POSTER(lm_id, lm_key, lm_company, dash_group_id, './kerry_dash/kerry_dash/dashboards/Alert_Overview.json')
+print('########')
+print('########')
+print('\n')
+print('Success!')
+print('\n')
+print('########')
+print('########')
