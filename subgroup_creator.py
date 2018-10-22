@@ -20,7 +20,6 @@ parser.add_argument('-dash', help='The ID of a LogicMonitor dashboard to extract
 
 args = parser.parse_args()
 args_dict = vars(args)
-print(args_dict)
 
 ###################
 # PARSE API CREDS #
@@ -29,7 +28,6 @@ print(args_dict)
 key_file_path = args_dict['file']
 file = open(key_file_path, 'r')
 file_text = file.read()
-print(file_text)
 
 key_file_json = json.loads(file_text)
 lm_id = key_file_json['lm_id']
@@ -59,9 +57,6 @@ if(args_dict['group'] != None):
 		DASHBOARD_POSTER(lm_id, lm_key, lm_company, dash_group_id, dash_path)
 elif(args_dict['dash'] != None):
 	dash_id = args_dict['dash']
-	print(lm_id)
-	print(lm_key)
-	print(lm_company)
 	DASH_OBTAIN(lm_id, lm_key, lm_company, dash_id)
 
 print('########')

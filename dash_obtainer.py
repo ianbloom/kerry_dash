@@ -87,10 +87,6 @@ def DASH_OBTAIN(lm_id, lm_key, lm_company, dash_id):
 			for cl in widget['config']['columns']:
 				cl.pop('dataPointId', None)
 
-	print('++++++++')
-	print('++++++++')
-	pprint(dash_body)
-
 	# Collect name for use as filename 
 	dash_name = dash_body['name']
 	dash_name = dash_name.replace(':', '_')

@@ -26,7 +26,6 @@ def LM_GET(_lm_id, _lm_key, _lm_account, _resource_path, _query_params, _data):
 
 	#Make request
 	response = requests.get(url, data=_data, headers=headers)
-	print(response.content)
 
 	if(response.headers['X-Rate-Limit-Remaining'] == 0):
 		window = response.headers['X-Rate-Limit-Window']

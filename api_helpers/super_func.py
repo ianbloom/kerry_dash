@@ -42,7 +42,6 @@ def SUBGROUP_POSTER(_lm_id, _lm_key, _lm_account, _group_id, _group_full_path):
     # Convert data_dict to JSON string
     data = json.dumps(data_dict)
     return_dict = LM_POST(_lm_id, _lm_key, _lm_account, resource_path, query_params, data)
-    print(return_dict['body'].decode())
     ###################
     # Windows Servers #
     ###################
@@ -58,7 +57,6 @@ def SUBGROUP_POSTER(_lm_id, _lm_key, _lm_account, _group_id, _group_full_path):
     # Convert data_dict to JSON string
     data = json.dumps(data_dict)
     return_dict = LM_POST(_lm_id, _lm_key, _lm_account, resource_path, query_params, data)
-    print(return_dict['body'].decode())
 
     ###########
     # Network #
@@ -75,7 +73,6 @@ def SUBGROUP_POSTER(_lm_id, _lm_key, _lm_account, _group_id, _group_full_path):
     # Convert data_dict to JSON string
     data = json.dumps(data_dict)
     return_dict = LM_POST(_lm_id, _lm_key, _lm_account, resource_path, query_params, data)
-    print(return_dict['body'].decode())
 
     return 0
 
@@ -147,24 +144,11 @@ def DASHBOARD_POSTER(_lm_id, _lm_key, _lm_account, _dash_group_id, _exported_jso
         resource_path = '/dashboard/widgets'
         query_params  = ''
         config = widget['config']
-
-        # LM DEV WHY DID YOU DO THIS
-        # if(config['type'] == 'noc'):
-        #     config['type'] = 'deviceNOC'
-        # elif(config['type'] == 'cgraph'):
-        #     config['type'] = 'ngraph'
         
         # Append dashboard ID to config
         config['dashboardId'] = dash_id
         position = widget['position']
         data = json.dumps(config)
-
-        print('CONFIG')
-        print(config)
-        print('\n')
-        print('POSITION')
-        print(position)
-        print('\n')
 
         widget_body = LM_POST(_lm_id, _lm_key, _lm_account, resource_path, query_params, data)['body'].decode()
         widget_json = json.loads(widget_body)
@@ -184,7 +168,5 @@ def DASHBOARD_POSTER(_lm_id, _lm_key, _lm_account, _dash_group_id, _exported_jso
     data = json.dumps(data_dict)
 
     return_dict = LM_PATCH(_lm_id, _lm_key, _lm_account, resource_path, query_params, data)
-    print(return_dict['body'])
-
 
     return 0
