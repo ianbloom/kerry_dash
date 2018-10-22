@@ -74,6 +74,22 @@ def SUBGROUP_POSTER(_lm_id, _lm_key, _lm_account, _group_id, _group_full_path):
     data = json.dumps(data_dict)
     return_dict = LM_POST(_lm_id, _lm_key, _lm_account, resource_path, query_params, data)
 
+    ##############
+    # Collectors #
+    ##############
+
+    # Build data dictionary to be converted to JSON string
+    data_dict                = {}
+    data_dict['groupType']   = 'Normal'
+    data_dict['description'] = 'Collectors'
+    data_dict['appliesTo']   = f'join(system.staticgroups,",") =~ "{_group_full_path}" && isCollectorDevice()'
+    data_dict['parentId']    = f'{_group_id}'
+    data_dict['name']        = 'Collectors'
+
+    # Convert data_dict to JSON string
+    data = json.dumps(data_dict)
+    return_dict = LM_POST(_lm_id, _lm_key, _lm_account, resource_path, query_params, data)
+
     return 0
 
 def DASH_GROUP_POSTER(_lm_id, _lm_key, _lm_account, _name, _full_path):
