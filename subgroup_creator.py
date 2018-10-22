@@ -47,11 +47,9 @@ if(args_dict['group'] != None):
 	pprint(dash_json)
 	dash_group_id = dash_json['id']
 
-	# file_array = os.listdir('C:\\Users\\Ian\\Documents\\GitHub\\kerry_dash\\dashboards')
 	file_array = os.listdir('./kerry_dash/kerry_dash/dashboards')
 
 	for file in file_array:
-		# dash_path = 'C:\\Users\\Ian\\Documents\\GitHub\\kerry_dash\\dashboards\\' + file
 		dash_path = './kerry_dash/kerry_dash/dashboards/' + file
 
 		DASHBOARD_POSTER(lm_id, lm_key, lm_company, dash_group_id, dash_path)
@@ -61,8 +59,8 @@ elif(args_dict['dash'] != None):
 
 print('########')
 print('########')
-print('\n')
+print('')
 print('Success!')
-print('\n')
+print('')
 print('########')
 print('########')
