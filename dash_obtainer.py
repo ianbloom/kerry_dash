@@ -98,6 +98,8 @@ def DASH_OBTAIN(lm_id, lm_key, lm_company, dash_id):
 	# Convert the dash_body dictionary back into a string
 	dash_body_string = json.dumps(dash_body)
 
-	file = open(f'./kerry_dash/kerry_dash/dashboards/{dash_name}.json', 'w')
+	cwd = os.getcwd()
+
+	file = open(f'{cwd}/dashboards/{dash_name}.json', 'w')
 	file.write(dash_body_string)
 	file.close()

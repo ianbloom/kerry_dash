@@ -37,7 +37,6 @@ lm_key = key_file_json['lm_key']
 lm_company = key_file_json['lm_company']
 
 if(args_dict['group'] != None):
-	print('im here')
 	group_id = args_dict['group']
 
 	# get_dict will consist of a name and a device group full path
