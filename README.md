@@ -42,12 +42,26 @@ This script takes a -file argument and either a -group or -dash argument:
 
 ## Example
 
-For my LogicMonitor account, I run the following:
+For my LogicMonitor account, I run the following to create dynamic subgroups for the device group with ID 42 and an associated dashboard group filled with the dashboards found in the ./dashboards directory:
 
 ```
 python subgroup_creator.py -file keyfile.txt -group 42
 ```
 
+To download a templatized version of the dashboard with ID 42 and place it in the ./dashboards directory:
+
+```
+python subgroup_creator.py -file keyfile.txt -dash 42
+```
+
 ## Result
 
-The result will be a ConnectWise configuration entry for each device in LogicMonitor.
+The creation of the following subgroups:
+* Linux Servers
+* Windows Servers
+* Collectors
+* Network
+
+The creation of a dashboard group with the name of the selected device group and the ##defaultDeviceGroup## token set to the device group's full path.
+
+The import of all dashboards in the ./dashboards folder.
