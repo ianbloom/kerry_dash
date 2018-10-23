@@ -21,6 +21,33 @@ Included in this repo is an example key file (key_file.txt).  Feel free to repla
 
 ## Setup
 
-This repository comes out of the box with a few recommended dashboards, but it is possible to extract your favorite tokenized dashboards for use as well.  Note: The format of these dashboard templates is different from those extracted via UI, because dashboards extracted via UI cannot be manipulated using LM API v2 endpoints.
+This repository comes out of the box with a few recommended dashboards, but it is possible to extract your favorite tokenized dashboards for use as well.  
+
+__Note: The format of these dashboard templates is different from those extracted via UI, because dashboards extracted via UI cannot be manipulated using LM API v2 endpoints.__
 
 There are two 'modes' in which subgroup_creater can run.  If the -dash argument is used, then the script will attempt to extract the dashboard of the specified ID.
+
+## Usage
+
+For information about the required variables, run the following:
+
+```
+python subgroup_creator.py -h
+```
+
+This script takes a -file argument and either a -group or -dash argument:
+* _-file_ : Path to file containing API credentials
+* _-group_ : The ID of a LogicMonitor device group to create dynamic subgroups and dashboards for
+* _-dash_ : The ID of a LogicMonitor dashboard to extract
+
+## Example
+
+For my LogicMonitor account, I run the following:
+
+```
+python subgroup_creator.py -file keyfile.txt -group 42
+```
+
+## Result
+
+The result will be a ConnectWise configuration entry for each device in LogicMonitor.
