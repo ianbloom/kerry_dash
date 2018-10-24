@@ -34,13 +34,6 @@ lm_id = key_file_json['lm_id']
 lm_key = key_file_json['lm_key']
 lm_company = key_file_json['lm_company']
 
-# lm_id = "wv2NAH8BGTqz7p2YEHHV"
-# lm_key = "J}HH5=_Kc]SW53jd=kEc8t3[6P!L!E$ZgX8ui2x("
-# lm_company = "ianbloom"
-
-# args_dict = {}
-# args_dict['group'] = 42
-
 cwd = os.getcwd()
 
 if(args_dict['group'] != None):
